@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import base.BaseTests;
 import pages.CarrinhoPage;
+import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.ModalProdutoPage;
 import pages.ProdutoPage;
@@ -158,6 +159,10 @@ public class HomePageTests extends BaseTests {
 	Double esperado_totalTotal = esperado_summaryTotal;
 	Double esperado_taxesTotal = 0.00;
 	
+	String esperado_nomeCliente = "Adecarlos Junior";
+	
+	
+	CarrinhoPage carrinhoPage;
 	
 	@Test
 	public void testIrParaCarrinho_InformacoesPersistidas() {
@@ -165,8 +170,8 @@ public class HomePageTests extends BaseTests {
 		//produto incluido na tela ModalProdutoPage
 		testincluirProdutosNoCarrinho_ProdutoIncluidoComSucesso();
 		
-		CarrinhoPage carrinhoPage = modalProdutoPage.clicarBotaoProceedToCheckout();
-		
+		carrinhoPage = modalProdutoPage.clicarBotaoProceedToCheckout();
+	/*	
 		//teste
 		
 		//Validar todos elementos da tela
@@ -184,7 +189,7 @@ public class HomePageTests extends BaseTests {
 		System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_summaryTotal()));
 		System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_total()));
 		System.out.println(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_taxesTotal()));
-	
+	*/
 		//Asserções hamcrest
 		assertThat(carrinhoPage.obter_nomeProduto(), is(esperado_nomeProduto));
 		assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_precoProduto()), is(esperado_precoProduto));
@@ -201,5 +206,34 @@ public class HomePageTests extends BaseTests {
 		assertThat(Funcoes.removeCifraoDevolveDouble(carrinhoPage.obter_taxesTotal()), is(esperado_taxesTotal));
 		
 		//assercoes junit
+	}
+	CheckoutPage checkoutPage;
+	
+	@Test
+	public void IrParaCheckout_FreteMeioPagamentoEnderecoListadoOk() {
+		//Pré-condicoes
+		
+		//Produto disponivel no carrinho de compras
+		testIrParaCarrinho_InformacoesPersistidas();
+		
+		//teste
+		
+		//clicar no botão
+		checkoutPage = carrinhoPage.clicarBotaoProceedToCheckout();
+		//preencher informacoes
+		
+		//validar informacoes na tela
+		assertThat(Funcoes.removeCifraoDevolveDouble(checkoutPage.obter_totalTaxIncTotal()), is(esperado_totalTotal));
+		//assertThat(checkoutPage.obter_nomeCliente(), is(esperado_nomeCliente));
+		assertTrue(checkoutPage.obter_nomeCliente().startsWith(esperado_nomeCliente));
+		checkoutPage.clicarBotaoContinueAdress();
+		
+		String encontrado_shippingValor = checkoutPage.obter_shippingValor();
+		encontrado_shippingValor = Funcoes.removeTexto(encontrado_shippingValor, " tax excl.");
+		Double encontrado_shippingValor_Double = Funcoes.removeCifraoDevolveDouble(encontrado_shippingValor);
+		
+		assertThat(encontrado_shippingValor_Double, is(esperado_shippingTotal));
+		
+		
 	}
 }
