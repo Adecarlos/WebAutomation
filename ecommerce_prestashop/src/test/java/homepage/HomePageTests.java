@@ -15,6 +15,7 @@ import pages.CarrinhoPage;
 import pages.CheckoutPage;
 import pages.LoginPage;
 import pages.ModalProdutoPage;
+import pages.PedidoPage;
 import pages.ProdutoPage;
 import util.Funcoes;
 
@@ -234,6 +235,43 @@ public class HomePageTests extends BaseTests {
 		
 		assertThat(encontrado_shippingValor_Double, is(esperado_shippingTotal));
 		
+		checkoutPage.clicarBotaoContinueShipping();
+		
+		//Selecionar opcao "Pay by check"
+		checkoutPage.selecionarRadioPayByCheck();
+		//Validar valor do cheque (amount)
+		String encontrado_amountPayByCheck = checkoutPage.obter_amountPayByCheck();
+		encontrado_amountPayByCheck = Funcoes.removeTexto(encontrado_amountPayByCheck, " (tax incl.)");
+		Double encontrado_amountPayByCheck_Double = Funcoes.removeCifraoDevolveDouble(encontrado_amountPayByCheck);
+		
+		assertThat(encontrado_amountPayByCheck_Double, is(esperado_totalTotal));
+		//clicar opcao I Agree
+		checkoutPage.selecionarCheboxIAgree();
+		
+		assertTrue(checkoutPage.estaSelecionadoCheckboxIAgree());
+	}
+	
+	@Test
+	public void finalizarPedido_pedidoFinalizadoComSucesso() {
+		//Pré-condições
+		//Checkout completamente concluído
+		IrParaCheckout_FreteMeioPagamentoEnderecoListadoOk();
+		
+		//Teste
+		//Clicar no botão para confirmar o pedido
+		PedidoPage pedidoPage = checkoutPage.clcicarBotaoConfirmaPedido();
+		
+		//Validar valores na tela
+		assertTrue(pedidoPage.obter_textoPedidoConfirmado().endsWith("YOUR ORDER IS CONFIRMED"));
+//		assertThat(pedidoPage.obter_textoPedidoConfirmado().toUpperCase(), is("YOUR ORDER IS CONFIRMED"))
+		
+		assertThat(pedidoPage.obter_email(), is("ade@junior.com"));
+		
+		assertThat(pedidoPage.obter_totalProdutos(), is(esperado_subtotalProduto));
+		
+		assertThat(pedidoPage.obter_totalTaxIncl(), is(esperado_totalTotal));
+		
+		assertThat(pedidoPage.obter_metodoPagamento(), is("check"));
 		
 	}
 }
