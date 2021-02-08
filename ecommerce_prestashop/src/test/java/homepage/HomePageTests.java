@@ -9,6 +9,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import base.BaseTests;
 import pages.CarrinhoPage;
@@ -76,6 +78,37 @@ public class HomePageTests extends BaseTests {
 		
 		carregarPaginaInicial();
 	}
+	
+	@ParameterizedTest
+	@CsvFileSource(resources = "/massaTeste_Login.csv", numLinesToSkip = 1, delimiter = ';')
+	public void testLogin_UsuarioLogadoComDadosValidos(String nomeTeste, String email, String password, String nomeUsuario, String resultado) {
+		//Clicar no botão sign in na home page
+		 loginPage = homePage.clicarBotaoSignIn();
+		
+		//Preencher usuário e senha
+		loginPage.preencherEmail(email);
+		loginPage.preencherSenha(password);
+		
+		//Clicar no botão SignIn
+		loginPage.clicarBotaoSignIn();
+		
+		boolean esperado_loginOK;
+		if(resultado.equals("positivo"))
+			esperado_loginOK = true;
+		else
+			esperado_loginOK = false;
+		
+		// validar se o usuário esta logado de fato
+		assertThat(homePage.estaLogado(nomeUsuario), is (esperado_loginOK));
+		
+		capturarTela(nomeTeste, resultado);
+		
+		if (esperado_loginOK) 
+			homePage.clicarBotaoSignOut();
+		
+		carregarPaginaInicial();
+	}
+	
 	
 	ModalProdutoPage modalProdutoPage;
 	
@@ -211,7 +244,7 @@ public class HomePageTests extends BaseTests {
 	CheckoutPage checkoutPage;
 	
 	@Test
-	public void IrParaCheckout_FreteMeioPagamentoEnderecoListadoOk() {
+	public void testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOk() {
 		//Pré-condicoes
 		
 		//Produto disponivel no carrinho de compras
@@ -252,10 +285,10 @@ public class HomePageTests extends BaseTests {
 	}
 	
 	@Test
-	public void finalizarPedido_pedidoFinalizadoComSucesso() {
+	public void testFinalizarPedido_pedidoFinalizadoComSucesso() {
 		//Pré-condições
 		//Checkout completamente concluído
-		IrParaCheckout_FreteMeioPagamentoEnderecoListadoOk();
+		testIrParaCheckout_FreteMeioPagamentoEnderecoListadoOk();
 		
 		//Teste
 		//Clicar no botão para confirmar o pedido

@@ -1,0 +1,3 @@
+﻿nomeTeste;email;password;nomeUsuario;resultado
+loginValido;ade@junior.com;13245768;Adecarlos Junior;positivo
+loginInvalido;ade@junior.com;teste123;Adecarlos Junior;negativo
