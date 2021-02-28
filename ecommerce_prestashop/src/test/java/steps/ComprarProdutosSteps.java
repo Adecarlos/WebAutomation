@@ -34,7 +34,7 @@ public class ComprarProdutosSteps {
 
 	@Before
 	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "/Users/adecarlos.junior/Documents/drivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}

@@ -23,7 +23,7 @@ public class BaseTests {
 	
 	@BeforeAll
 	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "/Users/adecarlos.junior/Documents/drivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
@@ -35,7 +35,7 @@ public class BaseTests {
 	}
 	
 	public void capturarTela(String nomeTeste, String resultado) {
-		var camera = (TakesScreenshot) driver;
+		 TakesScreenshot camera = (TakesScreenshot) driver;
 		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
 		try {
 			Files.move(capturaDeTela, new File("resources/screenshots/" + nomeTeste + "_" + resultado + ".png"));

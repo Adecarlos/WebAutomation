@@ -26,6 +26,8 @@ public class HomePage {
 	
 	private By botaoSignOut = By.cssSelector("a.logout");
 	
+	private By termosCondicoes = By.id("link-cms-page-3-2");
+	
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -87,5 +89,15 @@ public class HomePage {
 	public boolean estaLogado() {
 		return !"Sign in".contentEquals(driver.findElement(usuarioLogado).getText());
 	}
+	
+	public String obterTermoseCondicoes () {
+		return driver.findElement(termosCondicoes).getText();
+	}
+	
+	public TermosECondicoesPage clicarBotaoTermoseCondicoes() {
+		driver.findElement(termosCondicoes).click();
+		return new TermosECondicoesPage(driver);
+	}
 }
+
  
