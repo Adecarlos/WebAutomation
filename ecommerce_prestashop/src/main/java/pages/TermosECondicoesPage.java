@@ -7,9 +7,9 @@ public class TermosECondicoesPage {
 	
 	private WebDriver driver;
 	
-	private By tituloSessão = By.cssSelector("page-heading");
+	private By tituloSessão = By.cssSelector(".page-heading");
 	
-	private By primeiroSubtitulo = By.cssSelector("page-subheading");
+	private By primeiroSubtitulo = By.cssSelector(".page-subheading");
 	
 	private By primeiroParagrafo = By.cssSelector(".bottom-indent:nth-of-type(1)");
 			

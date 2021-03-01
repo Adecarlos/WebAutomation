@@ -1,4 +1,6 @@
 # language: pt
+
+@fluxopadrao @termos
 Funcionalidade: Acessar Termos e Condições
   Como um usuario
   Eu quero visualizar os termos e condições

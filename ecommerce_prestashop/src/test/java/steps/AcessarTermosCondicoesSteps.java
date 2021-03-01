@@ -27,8 +27,9 @@ public class AcessarTermosCondicoesSteps {
 
 	private static WebDriver driver;
 	private HomePage homePage = new HomePage(driver);
-
-	@Before
+	
+	
+	@Before(value="@termos")
 	public static void inicializar() {
 		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -76,7 +77,8 @@ public class AcessarTermosCondicoesSteps {
 		assertThat(termosPage.obterTextoPrimeiroParagrafo(), is("Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
 	}
 	
-	@After (order = 1)
+	
+	@After (value="@termos")
 	public void capturarTela(Scenario scenario) {
 		TakesScreenshot camera = (TakesScreenshot) driver;
 		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
@@ -88,10 +90,10 @@ public class AcessarTermosCondicoesSteps {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		finalizar();
 	}
 	
-	@After (order = 0)
+	 
 	public static void finalizar() {
 		driver.quit();
 	}

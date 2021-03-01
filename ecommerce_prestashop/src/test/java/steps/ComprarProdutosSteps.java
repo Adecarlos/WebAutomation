@@ -32,9 +32,9 @@ public class ComprarProdutosSteps {
 	private static WebDriver driver;
 	private HomePage homePage = new HomePage(driver);
 
-	@Before
+	@Before (value = "teste")
 	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");	
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
@@ -172,7 +172,7 @@ public class ComprarProdutosSteps {
 		assertThat(subtotalEncontrado, is(subtotalCalculadoEsperado));
 	}
 
-	@After (order = 1)
+	@After (order = 1, value = "teste")
 	public void capturarTela(Scenario scenario) {
 		TakesScreenshot camera = (TakesScreenshot) driver;
 		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
@@ -187,7 +187,7 @@ public class ComprarProdutosSteps {
 		
 	}
 	
-	@After (order = 0)
+	@After (order = 0, value = "teste")
 	public static void finalizar() {
 		driver.quit();
 	}

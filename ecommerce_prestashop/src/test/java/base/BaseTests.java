@@ -21,7 +21,7 @@ public class BaseTests {
 	private static WebDriver driver;
 	protected HomePage homePage;
 	
-	@BeforeAll
+//	@BeforeAll
 	public static void inicializar() {
 		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
 		driver = new ChromeDriver();
