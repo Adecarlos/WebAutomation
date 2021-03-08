@@ -28,13 +28,13 @@ public class AcessarTermosCondicoesSteps {
 	private static WebDriver driver;
 	private HomePage homePage = new HomePage(driver);
 	
-	
-	@Before(value="@termos")
-	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
+
+//	@Before
+//	public static void inicializar() {
+//		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");
+//		driver = new ChromeDriver();
+//		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//	}
 	
 	@Dado("que eu estou na tela inicial")
 	public void que_eu_estou_na_tela_inicial() {
@@ -78,23 +78,23 @@ public class AcessarTermosCondicoesSteps {
 	}
 	
 	
-	@After (value="@termos")
-	public void capturarTela(Scenario scenario) {
-		TakesScreenshot camera = (TakesScreenshot) driver;
-		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
-		try {
-			String scenarioId = scenario.getId().substring(scenario.getId().lastIndexOf(".feature:") + 9);
-			String nomeArquivo = "resources/screenshots/" + scenario.getName() + "_" + scenarioId + "_" + scenario.getStatus() + ".png";
-			System.out.println(nomeArquivo);
-			Files.move(capturaDeTela, new File(nomeArquivo));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		finalizar();
-	}
+//	@After
+//	public void capturarTela(Scenario scenario) {
+//		TakesScreenshot camera = (TakesScreenshot) driver;
+//		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
+//		try {
+//			String scenarioId = scenario.getId().substring(scenario.getId().lastIndexOf(".feature:") + 9);
+//			String nomeArquivo = "resources/screenshots/" + scenario.getName() + "_" + scenarioId + "_" + scenario.getStatus() + ".png";
+//			System.out.println(nomeArquivo);
+//			Files.move(capturaDeTela, new File(nomeArquivo));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		driver.quit();
+//	}
 	
 	 
-	public static void finalizar() {
-		driver.quit();
-	}
+//	public static void finalizar() {
+//		driver.quit();
+//	}
 }

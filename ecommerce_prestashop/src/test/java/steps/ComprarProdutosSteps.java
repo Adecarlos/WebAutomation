@@ -32,12 +32,12 @@ public class ComprarProdutosSteps {
 	private static WebDriver driver;
 	private HomePage homePage = new HomePage(driver);
 
-	@Before (value = "teste")
-	public static void inicializar() {
-		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");	
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	}
+//	@Before (value = "teste")
+//	public static void inicializar() {
+//		System.setProperty("webdriver.chrome.driver", "C:\\webdrivers\\chromedriver\\88\\chromedriver.exe");	
+//		driver = new ChromeDriver();
+//		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//	}
 
 	@Dado("que estou na pagina inicial")
 	public void que_estou_na_pagina_inicial() {
@@ -172,24 +172,24 @@ public class ComprarProdutosSteps {
 		assertThat(subtotalEncontrado, is(subtotalCalculadoEsperado));
 	}
 
-	@After (order = 1, value = "teste")
-	public void capturarTela(Scenario scenario) {
-		TakesScreenshot camera = (TakesScreenshot) driver;
-		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
-		try {
-			String scenarioId = scenario.getId().substring(scenario.getId().lastIndexOf(".feature:") + 9);
-			String nomeArquivo = "resources/screenshots/" + scenario.getName() + "_" + scenarioId + "_" + scenario.getStatus() + ".png";
-			System.out.println(nomeArquivo);
-			Files.move(capturaDeTela, new File(nomeArquivo));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	@After (order = 0, value = "teste")
-	public static void finalizar() {
-		driver.quit();
-	}
+//	@After (order = 1, value = "teste")
+//	public void capturarTela(Scenario scenario) {
+//		TakesScreenshot camera = (TakesScreenshot) driver;
+//		File capturaDeTela = camera.getScreenshotAs(OutputType.FILE);
+//		try {
+//			String scenarioId = scenario.getId().substring(scenario.getId().lastIndexOf(".feature:") + 9);
+//			String nomeArquivo = "resources/screenshots/" + scenario.getName() + "_" + scenarioId + "_" + scenario.getStatus() + ".png";
+//			System.out.println(nomeArquivo);
+//			Files.move(capturaDeTela, new File(nomeArquivo));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+//	
+//	@After (order = 0, value = "teste")
+//	public static void finalizar() {
+//		driver.quit();
+//	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
 }
